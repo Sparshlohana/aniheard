@@ -171,7 +171,7 @@ export function GameShell() {
                       disabled={game.status === "idle" || game.isPending || game.dailyCompleted}
                       onClick={game.moveToNextRound}
                       type="button"
-                      variant="ghost"
+                      variant={game.status === "skipped" ? "default" : "ghost"}
                     >
                       Next round
                     </Button>
