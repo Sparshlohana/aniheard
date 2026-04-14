@@ -49,62 +49,65 @@ export function GameShell() {
             <Card className="overflow-hidden border-cyan-400/15 bg-white/6">
               <CardContent className="relative p-5 sm:p-8">
                 <div className="space-y-5">
-                  <Badge className="border-cyan-300/20 bg-cyan-400/10 text-cyan-100">
-                    Viral anime OP guessing game
-                  </Badge>
                   <div className="space-y-3">
+                    <Badge className="border-cyan-300/20 bg-cyan-400/10 text-cyan-100">
+                      Viral anime OP guessing game
+                    </Badge>
                     <h1 className="max-w-2xl font-serif text-4xl leading-none sm:text-6xl">
                       AniHeard
                     </h1>
-                    <p className="max-w-2xl text-sm text-white/72 sm:text-lg">
-                      Ten seconds of anime opening chaos. Type fast, flex harder, and send your
-                      streak to the group chat before someone else clears the daily.
+                    <p className="max-w-2xl text-sm text-white/72 sm:text-base">
+                      Ten seconds. One opening. Clear the round before someone else posts the daily.
                     </p>
                   </div>
 
-                  <div className="grid gap-3 md:grid-cols-[auto_auto_1fr]">
-                    <div className="inline-flex rounded-full bg-white/7 p-1">
-                      {MODES.map((mode) => (
-                        <button
-                          key={mode.value}
-                          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                            game.playMode === mode.value
-                              ? "bg-cyan-400 text-slate-950"
-                              : "text-white/70 hover:text-white"
-                          }`}
-                          onClick={() => game.switchMode(mode.value)}
-                          type="button"
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="rounded-[24px] border border-white/10 bg-slate-950/45 p-3">
+                      <p className="px-1 text-[11px] uppercase tracking-[0.24em] text-white/45">
+                        Mode
+                      </p>
+                      <div className="mt-3 grid grid-cols-2 gap-2">
+                        {MODES.map((mode) => (
+                          <button
+                            key={mode.value}
+                            className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                              game.playMode === mode.value
+                                ? "bg-cyan-400 text-slate-950 shadow-[0_0_24px_rgba(34,211,238,0.25)]"
+                                : "bg-white/5 text-white/72 hover:bg-white/10 hover:text-white"
+                            }`}
+                            onClick={() => game.switchMode(mode.value)}
+                            type="button"
+                          >
+                            {mode.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="rounded-[24px] border border-white/10 bg-slate-950/45 p-3">
+                      <div className="space-y-3">
+                        <p className="px-1 text-[11px] uppercase tracking-[0.24em] text-white/45">
+                          Difficulty
+                        </p>
+                        <Select
+                          onValueChange={(value) => game.setDifficulty(value as DifficultyMode)}
+                          value={game.difficulty}
                         >
-                          {mode.label}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="md:max-w-[220px]">
-                      <Select
-                        onValueChange={(value) => game.setDifficulty(value as DifficultyMode)}
-                        value={game.difficulty}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Choose difficulty" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.entries(DIFFICULTY_LABELS).map(([value, label]) => (
-                            <SelectItem key={value} value={value}>
-                              {label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="rounded-[24px] border border-white/10 bg-white/6 p-4">
-                      <p className="text-xs uppercase tracking-[0.24em] text-white/45">
-                        {DIFFICULTY_LABELS[game.difficulty]}
-                      </p>
-                      <p className="mt-1 text-sm text-white/72">
-                        {DIFFICULTY_HINTS[game.difficulty]}
-                      </p>
+                          <SelectTrigger className="bg-white/8">
+                            <SelectValue placeholder="Choose difficulty" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Object.entries(DIFFICULTY_LABELS).map(([value, label]) => (
+                              <SelectItem key={value} value={value}>
+                                {label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <p className="px-1 text-sm leading-6 text-white/72">
+                          {DIFFICULTY_HINTS[game.difficulty]}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
